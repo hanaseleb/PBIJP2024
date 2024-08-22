@@ -1,7 +1,7 @@
 table Brands
 	lineageTag: 5e2b506f-5416-43b6-b5f6-160cbd60ab96
 
-	column Flagship
+	column Flagship123456789
 		dataType: string
 		lineageTag: 16be3840-ea52-4cb5-bbc1-f866be4193aa
 		summarizeBy: none

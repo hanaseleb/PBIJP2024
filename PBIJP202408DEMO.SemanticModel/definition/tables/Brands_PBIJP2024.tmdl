@@ -1,7 +1,7 @@
-table Brands
+table Brands_PBIJP2024
 	lineageTag: 5e2b506f-5416-43b6-b5f6-160cbd60ab96
 
-	column Flagship123456789
+	column Flagship
 		dataType: string
 		lineageTag: 16be3840-ea52-4cb5-bbc1-f866be4193aa
 		summarizeBy: none
@@ -68,7 +68,7 @@ table Brands
 			lineageTag: 4cf48791-4d41-4f0d-988b-385822b676aa
 			column: 'Sub Brand'
 
-	partition Brands = m
+	partition Brands_PBIJP2024 = m
 		mode: import
 		queryGroup: Tables
 		source =

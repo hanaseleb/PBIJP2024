@@ -1,0 +1,89 @@
+table Regions
+	lineageTag: bca583de-764e-4d89-9f57-4f9b7afa671f
+
+	column System
+		dataType: string
+		lineageTag: 33bdc3d4-f515-4abe-9c2b-b07cbf859c2a
+		summarizeBy: none
+		sourceColumn: System
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interplanetary Region'
+		dataType: string
+		lineageTag: e5e4b390-0dcc-4018-b87c-b484a852f032
+		summarizeBy: none
+		sourceColumn: Interplanetary Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Territory
+		dataType: string
+		lineageTag: 85ec7ff6-21a1-4ccc-bdb0-391f173c7cbb
+		summarizeBy: none
+		sourceColumn: Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Station
+		dataType: string
+		lineageTag: 448ce04b-4b37-4836-a906-9cbeed4310be
+		summarizeBy: none
+		sourceColumn: Station
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Station Type'
+		dataType: string
+		lineageTag: 143c4d29-e3be-4b74-9cc2-f2f5b2e31c5c
+		summarizeBy: none
+		sourceColumn: Station Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column All
+		dataType: string
+		lineageTag: 01dabba0-927a-447c-933e-dd4282827050
+		summarizeBy: none
+		sourceColumn: All
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Regional Hierarchy'
+		lineageTag: 8ce16331-fb01-4dfb-bd38-da99652a4893
+
+		level All
+			lineageTag: d0892c44-a314-4400-a33c-1c9e05de3679
+			column: All
+
+		level System
+			lineageTag: eb24e180-a00e-4f4f-9b9f-03f0c2c33521
+			column: System
+
+		level 'Interplanetary Region'
+			lineageTag: df0d47d9-4330-4447-8fc4-7a3dead1f50d
+			column: 'Interplanetary Region'
+
+		level Territory
+			lineageTag: 006fd1c2-f102-4ed6-b80b-677e2e392747
+			column: Territory
+
+		level Station
+			lineageTag: d6c1f01c-580a-45be-ba9f-a0ce66a12255
+			column: Station
+
+	partition Regions = m
+		mode: import
+		queryGroup: Tables
+		source =
+				let
+				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
+				    Data = Source{[Schema="Dimview",Item="Regions"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(Data,{"Tax Rate", "System Sales Directors", "Station Sales Managers", "System Regional Managers", "Territory Directors"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

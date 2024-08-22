@@ -1,0 +1,95 @@
+relationship 03e537eb-3ddb-4c20-b5ad-9090c0aadd0d
+	fromColumn: Customers.Station
+	toColumn: Regions.Station
+
+relationship aee91ed3-e637-4150-a8d4-22619ecc0034
+	fromColumn: Products.'Sub Brand Name'
+	toColumn: Brands.'Sub Brand'
+
+relationship 6ef67eab-1e07-436d-a358-6197853f0064
+	crossFilteringBehavior: bothDirections
+	fromColumn: Orders.'Item Status'
+	toColumn: 'Order Status'.'Order Status Code'
+
+relationship 5c8f76eb-7c06-4ed5-bdc2-6368b1f0ef0a
+	crossFilteringBehavior: bothDirections
+	fromColumn: Orders.'Order Doc. Type'
+	toColumn: 'order doc type'.'Sales Order Document Type Code'
+
+relationship 7664202a-acbb-4942-a83e-60eb3b8537f9
+	crossFilteringBehavior: bothDirections
+	fromColumn: Orders.'Product Key'
+	toColumn: Products.'Product Key'
+
+relationship c97e9cf2-9441-4f5a-8609-f53e6a3a7571
+	crossFilteringBehavior: bothDirections
+	fromColumn: Orders.'Customer Key'
+	toColumn: Customers.'Customer Key'
+
+relationship 599b10ac-8bcb-4550-b452-56d8954b2a35
+	toCardinality: many
+	fromColumn: fcst.'Product Type'
+	toColumn: Products.'Product Type'
+
+relationship 703b86a0-df9c-47d6-82e4-7c457de95971
+	toCardinality: many
+	fromColumn: fcst.'Region Territory'
+	toColumn: Regions.Territory
+
+relationship d3b21caa-eed5-4a2b-85a1-92a599807a8a
+	fromColumn: Orders.'Local Currency'
+	toColumn: fx$.'From Currency'
+
+relationship 2b4d3dd4-8a78-4111-9092-5f6b90343a42
+	joinOnDateBehavior: datePartOnly
+	fromColumn: date.Date
+	toColumn: LocalDateTable_97c01e0b-7b04-49e5-9561-21ed2a73a7f1.Date
+
+relationship fccec1a9-5a85-48e6-96d6-cbf8a9134971
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fcst.Date
+	toColumn: LocalDateTable_28fc2e0f-0ece-4cf1-8e92-e7637363a5e3.Date
+
+relationship 9542e4d6-5442-4484-aa9c-a9de5e4c7489
+	crossFilteringBehavior: bothDirections
+	fromColumn: Orders.'Order Date'
+	toColumn: date.Date
+
+relationship 2500bef2-0624-45e3-af94-749bf624861a
+	fromColumn: Orders.'Brand Name'
+	toColumn: 'zz Avg E2E by Product Brand'.'Brand Name'
+
+relationship 40521df9-261d-45f0-8d3f-282cdf3ff6af
+	isActive: false
+	fromColumn: Products.'Brand Name'
+	toColumn: 'zz Avg E2E by Product Brand'.'Brand Name'
+
+relationship efd0522c-10b9-4cec-8b3d-915925ef6b3b
+	fromColumn: Orders.'Product Subtype'
+	toColumn: 'zz Avg E2E by Product Subtype'.'Product Subtype'
+
+relationship 09a98a47-3ec2-4534-aab7-f97410af7212
+	isActive: false
+	fromColumn: Products.'Product Subtype'
+	toColumn: 'zz Avg E2E by Product Subtype'.'Product Subtype'
+
+relationship f9a1a6e2-6c90-4cea-9607-fc10fb9a2f85
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Orders.'Billing Date'
+	toColumn: LocalDateTable_5cf0b28d-98d3-4fca-99bf-f054dfddcc6f.Date
+
+relationship a397a87d-7211-4abc-b8af-ef17aa57e77e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Orders.'Confirm Goods Receipt Date'
+	toColumn: LocalDateTable_511b095e-d2ee-4a3c-95d6-c5b44402b6c8.Date
+
+relationship b4b28b1a-799c-483d-bd0d-4b5650c79208
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Orders.'Request Goods Receipt Date'
+	toColumn: LocalDateTable_033294bd-d590-4105-ae0e-8902e4782793.Date
+
+relationship 65d73ef4-29a0-4ba6-9f2e-49a59bd36bdc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Orders.'Ship Date'
+	toColumn: LocalDateTable_1e76de21-8777-428a-995d-88fe899406a3.Date
+

@@ -1,0 +1,62 @@
+model SpaceParts
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Tables
+
+	annotation PBI_QueryGroupOrder = 2
+
+extendedProperty TabularEditor_DeploymentMetadata =
+		{
+		  "User": "DESKTOP-NV69I5J\\Klonk-Temp",
+		  "Time": "2023-04-13T00:26:53.0246323+09:00",
+		  "ClientMachine": "DESKTOP-NV69I5J",
+		  "DeploymentMode": "SaveUI",
+		  "TabularEditorBuild": "3.5.1.1425"
+		}
+
+annotation TabularEditor_SerializeOptions = {"IgnoreInferredObjects":true,"IgnoreInferredProperties":true,"IgnoreTimestamps":true,"SplitMultilineStrings":true,"PrefixFilenames":false,"LocalTranslations":true,"LocalPerspectives":true,"LocalRelationships":true,"Levels":["Data Sources","Shared Expressions","Perspectives","Relationships","Roles","Tables","Tables/Columns","Tables/Hierarchies","Tables/Measures","Tables/Partitions","Tables/CalculationItems","Translations"]}
+
+annotation DataGoblins_SnekHighScore = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.132.908.0 (24.08)
+
+annotation PBI_QueryOrder = ["Brands","fx$","Customers","Products","Regions","Orders","fcst","order doc type","Order Status","date"]
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Brands
+ref table fx$
+ref table Customers
+ref table Products
+ref table Regions
+ref table Orders
+ref table fcst
+ref table 'order doc type'
+ref table 'Order Status'
+ref table 'Time Intelligence'
+ref table DateTableTemplate_ff17ea92-fce8-4bb9-9469-a432491a20d5
+ref table date
+ref table LocalDateTable_97c01e0b-7b04-49e5-9561-21ed2a73a7f1
+ref table LocalDateTable_28fc2e0f-0ece-4cf1-8e92-e7637363a5e3
+ref table 'zz Avg E2E by Product Subtype'
+ref table 'zz Avg E2E by Product Brand'
+ref table LocalDateTable_5cf0b28d-98d3-4fca-99bf-f054dfddcc6f
+ref table LocalDateTable_511b095e-d2ee-4a3c-95d6-c5b44402b6c8
+ref table LocalDateTable_033294bd-d590-4105-ae0e-8902e4782793
+ref table LocalDateTable_1e76de21-8777-428a-995d-88fe899406a3
+
+ref role 'Brand VPs'
+ref role 'Other Users'
+
+ref cultureInfo en-US
+

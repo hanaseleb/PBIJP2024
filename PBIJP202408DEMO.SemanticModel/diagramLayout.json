@@ -1,0 +1,330 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 288.66665649414063,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 378.2,
+            "y": 0
+          },
+          "nodeIndex": "Orders",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2525.1,
+            "y": 0
+          },
+          "nodeIndex": "Brands",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2243.9,
+            "y": 808.2
+          },
+          "nodeIndex": "Customers",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 6227.6,
+            "y": 785.6
+          },
+          "nodeIndex": "Order Status",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2283.8,
+            "y": 464.4
+          },
+          "nodeIndex": "Products",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3040.7,
+            "y": 842.4
+          },
+          "nodeIndex": "Regions",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9448.9,
+            "y": 0
+          },
+          "nodeIndex": "date",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1811.1,
+            "y": 519
+          },
+          "nodeIndex": "fx$",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2803.7,
+            "y": 364.9
+          },
+          "nodeIndex": "fcst",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5829.2,
+            "y": 785.6
+          },
+          "nodeIndex": "order doc type",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9016.2,
+            "y": 821.6
+          },
+          "nodeIndex": "Time Intelligence",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9354.6999999999989,
+            "y": 471.20000000000005
+          },
+          "nodeIndex": "zz Avg E2E by Product Brand",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9638.6999999999989,
+            "y": 471.20000000000005
+          },
+          "nodeIndex": "zz Avg E2E by Product Subtype",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 25.333333969116211,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Orders",
+          "nodeLineageTag": "85791d56-7571-4870-ac91-2e53ef43e591",
+          "size": {
+            "height": 822,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 304,
+            "y": 119
+          },
+          "nodeIndex": "date",
+          "nodeLineageTag": "5238287b-c898-4766-915d-0b2f212ac99f",
+          "size": {
+            "height": 104,
+            "width": 248
+          },
+          "zIndex": 3,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1055,
+            "y": 271
+          },
+          "nodeIndex": "Brands",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 768,
+            "y": 619
+          },
+          "nodeIndex": "Products",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 365,
+            "y": 289
+          },
+          "nodeIndex": "Customers",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 695,
+            "y": 149
+          },
+          "nodeIndex": "Regions",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 327,
+            "y": 938
+          },
+          "nodeIndex": "Order Status",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1279,
+            "y": 648
+          },
+          "nodeIndex": "order doc type",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1388,
+            "y": 222
+          },
+          "nodeIndex": "Time Intelligence",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 533,
+            "y": 0
+          },
+          "nodeIndex": "zz Avg E2E by Product Brand",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 787,
+            "y": 0
+          },
+          "nodeIndex": "zz Avg E2E by Product Subtype",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 200
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Layout 1",
+  "defaultDiagram": "All tables"
+}

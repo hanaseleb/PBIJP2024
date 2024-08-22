@@ -1,0 +1,87 @@
+table 'zz Avg E2E by Product Subtype'
+	lineageTag: 8aabffe0-e7ac-457c-877a-e93d4a21e363
+
+	column 'Product Subtype'
+		dataType: string
+		lineageTag: 5f751522-6652-4c8e-80fa-5d4ec244c5eb
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Products[Product Subtype]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg. Days to Deliver'
+		dataType: double
+		formatString: 0.00
+		lineageTag: c0b2f16f-c901-404b-8d33-7c3cc22197f4
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days to Deliver]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg. Days to Ship'
+		dataType: double
+		formatString: 0.00
+		lineageTag: ccf1bdf0-507b-416a-998f-a30a31e98320
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days to Ship]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg. Days On Time'
+		dataType: double
+		formatString: 0.00
+		lineageTag: b9fa20ad-f3fe-42e7-9673-14e8cdacf5cb
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days On Time]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg. Days E2E'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 75fb6b66-178e-46e4-a180-b21e8b82a214
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days E2E]
+
+		annotation SummarizationSetBy = Automatic
+
+	column '# Late Lines'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4b67f34b-96a5-4a59-ae0a-5fb80db8374c
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [# Late Lines]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column '# On Time Lines'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 2ff45012-58f3-4414-8072-7f49d154fe94
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [# On Time Lines]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'zz Avg E2E by Product Subtype-2456a92d-1534-4b30-baf4-9c726048e35a' = calculated
+		mode: import
+		source = SUMMARIZE ( 'Products', 'Products'[Product Subtype], "Avg. Days to Deliver", AVERAGE ( 'Orders'[Days to Deliver] ), "Avg. Days to Ship", AVERAGE ( 'Orders'[Days to Ship] ), "Avg. Days On Time", AVERAGE ( Orders[Days On Time] ), "Avg. Days E2E", AVERAGE ( Orders[Days E2E] ), "# Late Lines", CALCULATE (  COUNTROWS( 'Orders' ), 'Orders'[On Time Y/N] = "On Time" ), "# On Time Lines", CALCULATE (  COUNTROWS( 'Orders' ), 'Orders'[On Time Y/N] <> "On Time" ) )
+
+	annotation PBI_Id = 271ac7dcaae944fdbf47899ae2f126b0
+

@@ -1,0 +1,65 @@
+table 'Order Status'
+	lineageTag: 12d7ff4e-91a1-4a12-bdaa-8138019fc2d0
+
+	column 'Order Status Code'
+		dataType: string
+		lineageTag: a100afe0-dcbd-4d7c-99d8-a75db4331ab8
+		summarizeBy: none
+		sourceColumn: Order Status Code
+		sortByColumn: 'Order Status Order'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status Text'
+		dataType: string
+		lineageTag: cac50369-1d71-44df-9a3a-852a8da9d08f
+		summarizeBy: none
+		sourceColumn: Order Status Text
+		sortByColumn: 'Order Status Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status Order'
+		dataType: int64
+		lineageTag: d641dd45-15cd-45fa-9d89-069004a9392c
+		summarizeBy: none
+		sourceColumn: Order Status Order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status Group'
+		dataType: string
+		lineageTag: f34f646d-9d85-473b-be9a-0fd08df3cb97
+		summarizeBy: none
+		sourceColumn: Order Status Group
+		sortByColumn: 'Order Status Group Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status Group Order'
+		dataType: int64
+		lineageTag: b6d344fc-1b71-4459-90fc-67a8d9d92e9f
+		summarizeBy: none
+		sourceColumn: Order Status Group Order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Order Status' = m
+		mode: import
+		queryGroup: Tables
+		source =
+				let
+				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
+				    Data = Source{[Schema="Dimview",Item="Order Status"]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(Data,{{"Order Status Grouping Ordinal", "Order Status Group Order"}, {"Order Status Ordinal", "Order Status Order"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

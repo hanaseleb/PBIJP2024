@@ -1,0 +1,558 @@
+table Orders
+	lineageTag: 85791d56-7571-4870-ac91-2e53ef43e591
+
+	/// Net orders exclude cancellation document types
+	measure 'Net Orders $' = ```
+			
+			CALCULATE (
+			    [Total Net Order Value],
+			    'order doc type'[Group]
+			        <> "Cancellation"
+			) 
+			```
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 4b34a3e0-ef13-4b57-8312-568cc0f1083c
+
+		changedProperty = IsHidden
+
+	/// Net orders exclude cancellation document types
+	measure 'Net Orders Qty' = ```
+			
+			CALCULATE (
+			    [Total Net Order Quantity],
+			    'order doc type'[Group]
+			        <> "Cancellation"
+			) 
+			```
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 735e22bf-4e02-4887-a597-e1dfcdd34aad
+
+		changedProperty = IsHidden
+
+	/// Net orders exclude cancellation document types
+	measure 'Net Orders $ 1YP' =
+			
+			CALCULATE ( [Net Orders $], DATEADD('Date'[Date], -1, YEAR ))
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: ff93215e-8b82-41cd-bfd8-a31541d6dc84
+
+		changedProperty = IsHidden
+
+	/// Net orders exclude cancellation document types
+	measure 'Net Orders $ 2YP' =
+			
+			CALCULATE ( [Net Orders $], DATEADD('Date'[Date], -2, YEAR ))
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 4ace6187-dbc5-4132-a957-a2c2d78d7c0e
+
+		changedProperty = IsHidden
+
+	/// The net order value is the sum of all order intake including cancellations (also known as Gross Orders)
+	measure 'Total Net Order Value' =
+			
+			sum('orders'[net order value (eur)])
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 7bb01c04-5462-4841-93f9-e0d850e8c1cf
+
+		changedProperty = IsHidden
+
+	measure 'Order Lines' =
+			
+			distinctcount([orderlines])
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 5324832f-97a5-437f-9604-d6dca47246de
+
+		changedProperty = IsHidden
+
+	measure 'Total Net Order Quantity' =
+			
+			sum('Orders'[Net Order qty])
+		formatString: #,##0
+		displayFolder: measures
+		lineageTag: 880c9c1a-af07-4b22-b4e8-28a116f6a170
+
+		changedProperty = IsHidden
+
+	column 'Order #'
+		dataType: int64
+		lineageTag: 163858ac-fb24-4133-adf0-b14dab3c3f36
+		summarizeBy: sum
+		sourceColumn: Order #
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// There is a bug with the "Order Date" field where it is blank. This will take me a bit of time to resolve. - Kurt
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cca4d6f0-d0b7-47ed-a7c9-8f5aa2a98962
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Customer Key'
+		dataType: string
+		lineageTag: 9496ba22-b180-436d-bcdc-9a1a74722321
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item #'
+		dataType: int64
+		lineageTag: 3160dd83-6600-4ee8-9352-1f63bf72df1e
+		summarizeBy: sum
+		sourceColumn: Item #
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: int64
+		lineageTag: 35a4cdf8-ef86-4d1f-b389-9f9cf1567188
+		summarizeBy: none
+		sourceColumn: Product Key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0dfc4547-ab35-4e31-b8c9-e1ac1f97746e
+		summarizeBy: none
+		sourceColumn: Billing Date
+
+		variation Variation
+			isDefault
+			relationship: f9a1a6e2-6c90-4cea-9607-fc10fb9a2f85
+			defaultHierarchy: LocalDateTable_5cf0b28d-98d3-4fca-99bf-f054dfddcc6f.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9792bfa7-8c8a-434d-8cad-919bc7f9ecb8
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 65d73ef4-29a0-4ba6-9f2e-49a59bd36bdc
+			defaultHierarchy: LocalDateTable_1e76de21-8777-428a-995d-88fe899406a3.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Request Goods Receipt Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1d86455e-0786-4044-a863-46c0f76d2528
+		summarizeBy: none
+		sourceColumn: Request Goods Receipt Date
+
+		variation Variation
+			isDefault
+			relationship: b4b28b1a-799c-483d-bd0d-4b5650c79208
+			defaultHierarchy: LocalDateTable_033294bd-d590-4105-ae0e-8902e4782793.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Confirm Goods Receipt Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 76a947d9-cf88-49b9-945e-9034a3c2ce17
+		summarizeBy: none
+		sourceColumn: Confirm Goods Receipt Date
+
+		variation Variation
+			isDefault
+			relationship: a397a87d-7211-4abc-b8af-ef17aa57e77e
+			defaultHierarchy: LocalDateTable_511b095e-d2ee-4a3c-95d6-c5b44402b6c8.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Order Doc. Type'
+		dataType: string
+		lineageTag: 9f790c89-4a50-4f00-9729-4e8219f5ebb4
+		summarizeBy: none
+		sourceColumn: Order Doc. Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Status'
+		dataType: string
+		lineageTag: cd22a20a-de0e-411c-8c1a-bf9806d7dcfe
+		summarizeBy: none
+		sourceColumn: Item Status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Local Currency'
+		dataType: string
+		lineageTag: 2022bec1-9cd4-4ac9-993e-9cc85a29646c
+		summarizeBy: none
+		sourceColumn: Local Currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Order Value (Local Currency)'
+		dataType: double
+		lineageTag: ce7d5f32-b1d9-4c34-b778-963c65d7931d
+		summarizeBy: sum
+		sourceColumn: Net Order Value (Local Currency)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Order Quantity'
+		dataType: int64
+		lineageTag: 38503552-7ce2-412c-bb5e-b56bda227eb0
+		summarizeBy: sum
+		sourceColumn: Net Order Quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rate (to EUR)'
+		dataType: double
+		lineageTag: 93155363-90b9-4990-8690-451d5e79e93a
+		summarizeBy: sum
+		sourceColumn: Rate (to EUR)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Order Value (EUR)'
+		dataType: double
+		lineageTag: 0bf0fbbc-3a90-4a5f-bae8-6c609e12f4fa
+		summarizeBy: sum
+		sourceColumn: Net Order Value (EUR)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Days On Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: a98e39fd-c881-42ff-bcbf-84edab4d8ee2
+		summarizeBy: sum
+		sourceColumn: Days On Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days to Bill'
+		dataType: int64
+		formatString: 0
+		lineageTag: 522339e6-bec4-491f-8210-f0fb62ad7008
+		summarizeBy: sum
+		sourceColumn: Days to Bill
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days to Ship'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8adee99e-4668-46bf-a927-6ea8538b1576
+		summarizeBy: sum
+		sourceColumn: Days to Ship
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days E2E'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1900e40b-cae7-4c74-8f61-317caeb7bbec
+		summarizeBy: sum
+		sourceColumn: Days E2E
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days to Deliver'
+		dataType: int64
+		formatString: 0
+		lineageTag: dd0e02eb-4ee2-4402-94dd-b5acfe5e975f
+		summarizeBy: sum
+		sourceColumn: Days to Deliver
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sub Brand Name'
+		dataType: string
+		lineageTag: c9afd9de-889d-423e-9854-0d8b85a00267
+		summarizeBy: none
+		sourceColumn: Sub Brand Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Class for Part'
+		dataType: string
+		lineageTag: f5b89662-84a8-4189-96cf-1c83932c027d
+		summarizeBy: none
+		sourceColumn: Ship Class for Part
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: 8439c26a-0300-48d8-879e-476900c37ab5
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Business Line Leader'
+		dataType: string
+		lineageTag: 9dff1313-74ee-4406-8e7c-00b5cd960d6d
+		summarizeBy: none
+		sourceColumn: Product Business Line Leader
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Part Fit Grading'
+		dataType: string
+		lineageTag: 907b6e06-4b7a-474c-a89d-2d538527f2c1
+		summarizeBy: none
+		sourceColumn: Part Fit Grading
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Subtype'
+		dataType: string
+		lineageTag: dc636307-cfcf-4a14-8a93-923665c97f9b
+		summarizeBy: none
+		sourceColumn: Product Subtype
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Type'
+		dataType: string
+		lineageTag: dfcc49bf-4edf-479a-9d7a-bb23fa9c9417
+		summarizeBy: none
+		sourceColumn: Product Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weight (Tonnes)'
+		dataType: double
+		lineageTag: eb3be7b0-e946-48f9-bae6-203a003415fd
+		summarizeBy: sum
+		sourceColumn: Weight (Tonnes)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Maximum Temperature (K)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 37763a61-e1ce-47b9-9c3a-3304a2d20861
+		summarizeBy: sum
+		sourceColumn: Maximum Temperature (K)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Velocity Tolerance (Meters / Second)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 980a0b45-1ae9-4ee1-a6d7-4d9ff64cc7e6
+		summarizeBy: sum
+		sourceColumn: Velocity Tolerance (Meters / Second)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tolerance (g)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 20c06a20-1fdb-4063-96a5-e7af2a9272d7
+		summarizeBy: sum
+		sourceColumn: Tolerance (g)
+
+		annotation SummarizationSetBy = Automatic
+
+	column MK
+		dataType: string
+		lineageTag: 8e189d84-76b8-41fb-90f7-2245330cf632
+		summarizeBy: none
+		sourceColumn: MK
+
+		annotation SummarizationSetBy = Automatic
+
+	column Color
+		dataType: string
+		lineageTag: 7ec88765-a878-4273-93e4-52ce6c0a148c
+		summarizeBy: none
+		sourceColumn: Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Production Series'
+		dataType: string
+		lineageTag: 041ba9ea-1bde-4d52-b5c4-0cf9770215fb
+		summarizeBy: none
+		sourceColumn: Production Series
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nameplate
+		dataType: string
+		lineageTag: 1a91c137-4781-4637-8cd2-b51abacadc82
+		summarizeBy: none
+		sourceColumn: Nameplate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Part
+		dataType: string
+		lineageTag: fbbb802d-b81f-4cc9-bc6e-72b3ca93469f
+		summarizeBy: none
+		sourceColumn: Part
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flagship
+		dataType: string
+		lineageTag: 0fe27aac-ba9b-480f-8658-b1fbc1cb4d21
+		summarizeBy: none
+		sourceColumn: Flagship
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Class'
+		dataType: string
+		lineageTag: 0f6e9d08-293b-4662-900c-9c92e8833c22
+		summarizeBy: none
+		sourceColumn: Brand Class
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Type'
+		dataType: string
+		lineageTag: 7ea3ac48-8b77-4fdd-a94c-cf0a1b209b97
+		summarizeBy: none
+		sourceColumn: Brand Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Name'
+		dataType: string
+		lineageTag: 78938390-2a6d-45ef-bcf2-53ca46640084
+		summarizeBy: none
+		sourceColumn: Brand Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand VP'
+		dataType: string
+		lineageTag: e7c1fa05-7d39-48bd-9334-f35803466084
+		summarizeBy: none
+		sourceColumn: Brand VP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Part-Plant Key (Excel VLOOKUP)'
+		dataType: string
+		lineageTag: a0624553-9226-4657-baff-53389a30c5a4
+		summarizeBy: none
+		sourceColumn: Part-Plant Key (Excel VLOOKUP)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'On Time Y/N' = IF ( 'Orders'[Days On Time] < 0, "Not On Time", "On Time" )
+		dataType: string
+		lineageTag: 6a57ad9b-0ce9-4207-a195-dfa150e2a0e4
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLines = ```
+			'orders'[Order #] & "." & orders[item #] 
+			```
+		dataType: string
+		lineageTag: d4f79eed-03c4-4fb9-8168-2b22058581ff
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Orders = m
+		mode: import
+		queryGroup: Tables
+		source =
+				let
+				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
+				    Data = Source{[Schema="Factview",Item="Orders"]}[Data],
+				    #"Select Columns" = Table.RemoveColumns ( Data, "DWCreatedDate" ),
+				    #"Added Custom" = Table.AddColumn(#"Select Columns", "RandomDays", each Number.RandomBetween(7, 90), Int64.Type),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"RandomDays", Int64.Type}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type", "Fixed Order Date", each if [Order Date] = null then Date.AddDays([Request Goods Receipt Date], -[RandomDays]) else [Order Date]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"Fixed Order Date", type date}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"Order Date", "RandomDays"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Fixed Order Date", "Order Date"}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns", {"Local Currency"}, #"fx$", {"From Currency"}, "Budget Rate", JoinKind.LeftOuter),
+				    #"Expanded Budget Rate" = Table.ExpandTableColumn(#"Merged Queries", "Budget Rate", {"Rate"}, {"Rate"}),
+				    #"Inserted Division" = Table.AddColumn(#"Expanded Budget Rate", "Net Order Value (EUR)", each [Net Order Value] / [Rate], type number),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Division",{{"Net Order Value", "Net Order Value (Local Currency)"}, {"Rate", "Rate (to EUR)"}, {"Sales Order Document Line Item Number", "Item #"}, {"Sales Order Document Number", "Order #"}, {"Sales Order Document Line Item Status", "Item Status"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"Order #", "Customer Key", "Sales Order Document Type Code", "Item #", "Product Key", "Order Date", "Request Goods Receipt Date", "Ship Date", "Confirm Goods Receipt Date", "Billing Date", "Item Status", "Local Currency", "Net Order Value (Local Currency)", "Net Order Quantity", "Rate (to EUR)", "Net Order Value (EUR)"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Reordered Columns",{{"Sales Order Document Type Code", "Order Doc. Type"}}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Renamed Columns2",{"Order #", "Customer Key", "Order Doc. Type", "Item #", "Product Key", "Order Date", "Request Goods Receipt Date", "Ship Date", "Confirm Goods Receipt Date", "Billing Date", "Item Status", "Net Order Quantity", "Local Currency", "Rate (to EUR)", "Net Order Value (Local Currency)", "Net Order Value (EUR)"}),
+				    #"Inserted Date Subtraction" = Table.AddColumn(#"Reordered Columns1", "Days On Time", each Duration.Days([Request Goods Receipt Date] - [Confirm Goods Receipt Date]), Int64.Type),
+				    #"Inserted Date Subtraction1" = Table.AddColumn(#"Inserted Date Subtraction", "Days to Bill", each Duration.Days([Billing Date] - [Confirm Goods Receipt Date]), Int64.Type),
+				    #"Inserted Date Subtraction2" = Table.AddColumn(#"Inserted Date Subtraction1", "Days to Ship", each Duration.Days([Order Date] - [Ship Date]), Int64.Type),
+				    #"Inserted Date Subtraction3" = Table.AddColumn(#"Inserted Date Subtraction2", "Days E2E", each Duration.Days([Billing Date] - [Order Date]), Int64.Type),
+				    #"Inserted Date Subtraction4" = Table.AddColumn(#"Inserted Date Subtraction3", "Days to Deliver", each Duration.Days([Confirm Goods Receipt Date] - [Ship Date]), Int64.Type),
+				    #"Merged Queries1" = Table.NestedJoin(#"Inserted Date Subtraction4", {"Product Key"}, Products, {"Product Key"}, "Products", JoinKind.LeftOuter),
+				    #"Expanded Products" = Table.ExpandTableColumn(#"Merged Queries1", "Products", {"Sub Brand Name", "Ship Class for Part", "Product Name", "Product Business Line Leader", "Part Fit Grading", "Product Subtype", "Product Type", "Weight (Tonnes)", "Maximum Temperature (K)", "Velocity Tolerance (Meters / Second)", "Tolerance (g)", "MK", "Color", "Production Series", "Nameplate", "Part", "Flagship", "Brand Class", "Brand Type", "Brand Name", "Brand VP"}, {"Sub Brand Name", "Ship Class for Part", "Product Name", "Product Business Line Leader", "Part Fit Grading", "Product Subtype", "Product Type", "Weight (Tonnes)", "Maximum Temperature (K)", "Velocity Tolerance (Meters / Second)", "Tolerance (g)", "MK", "Color", "Production Series", "Nameplate", "Part", "Flagship", "Brand Class", "Brand Type", "Brand Name", "Brand VP"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Products", each [Product Type] = "Projectiles"),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Filtered Rows", "Part-Plant Key", each Text.Combine({[Part], [Local Currency]}, "-"), type text),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Inserted Merged Column",{{"Part-Plant Key", "Part-Plant Key (Excel VLOOKUP)"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns3",null,#date(1900, 1, 1),Replacer.ReplaceValue,{"Ship Date", "Confirm Goods Receipt Date", "Billing Date"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+

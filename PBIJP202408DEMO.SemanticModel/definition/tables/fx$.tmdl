@@ -1,0 +1,61 @@
+table fx$
+	lineageTag: 68dde8df-0ca5-4974-9afa-a3d1fc7dcf1f
+
+	column Rate
+		dataType: double
+		lineageTag: 46c64843-a8c8-49af-9770-8144db4c3640
+		summarizeBy: none
+		sourceColumn: Rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'From Currency'
+		dataType: string
+		lineageTag: df013c22-0791-4223-9fe0-f45c70d95063
+		summarizeBy: none
+		sourceColumn: From Currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'To Currency'
+		dataType: string
+		lineageTag: d7d777a5-9b43-429b-a5eb-fb1ab1549af7
+		summarizeBy: none
+		sourceColumn: To Currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency System'
+		dataType: string
+		lineageTag: f92a040a-f088-449b-8486-33aeeef0c9b2
+		summarizeBy: none
+		sourceColumn: Currency System
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fx$ = m
+		mode: import
+		queryGroup: Tables
+		source =
+				let
+				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
+				    Data = Source{[Schema="Dimview",Item="Budget Rate"]}[Data]
+				in
+				    Data
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

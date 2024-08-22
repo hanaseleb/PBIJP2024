@@ -1,0 +1,89 @@
+table 'zz Avg E2E by Product Brand'
+	lineageTag: c4af47f9-3c54-4b28-84b4-32955381016c
+
+	column 'Avg. Days to Deliver'
+		dataType: double
+		lineageTag: 2c6c0aad-4e6d-4d2e-8941-606ca3c0fb56
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days to Deliver]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Avg. Days to Ship'
+		dataType: double
+		lineageTag: 9bb9a9b5-e106-48e7-aa01-ab3799b00b3c
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days to Ship]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Avg. Days On Time'
+		dataType: double
+		lineageTag: 91d2feaa-0395-4018-8325-9f1b0168306e
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days On Time]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Avg. Days E2E'
+		dataType: double
+		lineageTag: e777b552-a8e8-4cf1-9271-5c340160bbe4
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Avg. Days E2E]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Brand Name'
+		dataType: string
+		lineageTag: 4775b3c6-de7f-4e77-94f6-94aa5ab9c879
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Products[Brand Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column '# Late Lines'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 91466afa-05b3-4ca0-8122-174ee2659c2d
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [# Late Lines]
+
+		annotation SummarizationSetBy = Automatic
+
+	column '# On Time Lines'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 39449bc2-c5a8-4e63-b9eb-d534bbf2432c
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [# On Time Lines]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'zz Avg E2E by Product Brand-0c413ff9-a305-4037-92ca-70d9bdb90c9c' = calculated
+		mode: import
+		source = SUMMARIZE ( 'Products', 'Products'[Brand Name], "Avg. Days to Deliver", AVERAGE ( 'Orders'[Days to Deliver] ), "Avg. Days to Ship", AVERAGE ( 'Orders'[Days to Ship] ), "Avg. Days On Time", AVERAGE ( Orders[Days On Time] ), "Avg. Days E2E", AVERAGE ( Orders[Days E2E] ), "# Late Lines", CALCULATE (  COUNTROWS( 'Orders' ), 'Orders'[On Time Y/N] = "On Time" ), "# On Time Lines", CALCULATE (  COUNTROWS( 'Orders' ), 'Orders'[On Time Y/N] <> "On Time" ) )
+
+	annotation PBI_Id = 187166bb0dfc489582c46b8baa20c1ca
+

@@ -1,0 +1,78 @@
+table fcst
+	lineageTag: f44175ec-6e73-4cc5-93db-4febba622528
+
+	measure Forecast =
+			
+			sum('fcst'[Forecast (EUR)])
+		formatString: #,##0
+		lineageTag: a6383680-00ad-44a2-a972-afd4378179ad
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1c521f45-cb4d-444a-94da-8684fd62cf37
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: fccec1a9-5a85-48e6-96d6-cbf8a9134971
+			defaultHierarchy: LocalDateTable_28fc2e0f-0ece-4cf1-8e92-e7637363a5e3.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Region Territory'
+		dataType: string
+		lineageTag: 864f2700-e020-4b14-98ce-7e5b4154275d
+		summarizeBy: none
+		sourceColumn: Region Territory
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Type'
+		dataType: string
+		lineageTag: a3e38e2f-113c-4b33-97bd-ba68256feaff
+		summarizeBy: none
+		sourceColumn: Product Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Forecast (EUR)'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 68c093b8-8ce0-44cc-ab2c-213dcc900077
+		summarizeBy: sum
+		sourceColumn: Forecast (EUR)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition fcst = m
+		mode: import
+		queryGroup: Tables
+		source =
+				let
+				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
+				    Data = Source{[Schema="Factview",Item="Forecast"]}[Data],
+				    #"Select Columns" = Table.SelectColumns ( Data, {"Forecast Month", "Forecast (EUR)", "Region Territory", "Product Type"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Select Columns",{{"Forecast Month", "Date"}, {"Forecast (EUR)", "Forecast"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Product Type] = "Projectiles")),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"Product Type", "Date"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Duplicates",{{"Forecast", "Forecast (EUR)"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Forecast (EUR)", Currency.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -41,12 +41,12 @@
       "name": "ReportSection",
       "visualContainers": [
         {
-          "config": "{\"name\":\"f3241885014bf289a8a2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":425.9341086526936,\"y\":123.40147073115423,\"z\":0,\"width\":711.2170786225663,\"height\":509.52865334154006}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"date.Month Year Short\"}],\"Y\":[{\"queryRef\":\"Orders.Net Orders $\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"date\",\"Type\":0},{\"Name\":\"o\",\"Entity\":\"Orders\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month Year Short\"},\"Name\":\"date.Month Year Short\",\"NativeReferenceName\":\"Month Year Short\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"o\"}},\"Property\":\"Net Orders $\"},\"Name\":\"Orders.Net Orders $\",\"NativeReferenceName\":\"Net Orders $\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"o\"}},\"Property\":\"Net Orders $\"}}}]},\"autoSelectVisualType\":true,\"drillFilterOtherVisuals\":true}}",
+          "config": "{\"name\":\"f3241885014bf289a8a2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":112.00000000000001,\"y\":128,\"z\":0,\"width\":1024,\"height\":512}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"date.Month Year Short\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month Year Short\"},\"Name\":\"date.Month Year Short\",\"NativeReferenceName\":\"Month Year Short\"}]},\"drillFilterOtherVisuals\":true}}",
           "filters": "[]",
-          "height": 509.53,
-          "width": 711.22,
-          "x": 425.93,
-          "y": 123.40,
+          "height": 512.00,
+          "width": 1024.00,
+          "x": 112.00,
+          "y": 128.00,
           "z": 0.00
         }
       ],

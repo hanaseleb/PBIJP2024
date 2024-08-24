@@ -1,7 +1,7 @@
 role 'Brand VPs'
 	modelPermission: read
 
-	tablePermission Brands = 'Brands'[Product Brand VP] = USERNAME()
+	tablePermission Brands12345 = 'Brands12345'[Product Brand VP] = USERNAME()
 
 	annotation PBI_Id = 0b8d41815400413293ab3942e184b53e
 

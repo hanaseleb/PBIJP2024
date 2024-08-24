@@ -249,7 +249,7 @@ table Products
 				let
 				    Source = Sql.Database("te3-training-eu.database.windows.net","SpacePartsCoDW"),
 				    Data = Source{[Schema="Dimview",Item="Products"]}[Data],
-				    #"Merged Queries" = Table.FuzzyNestedJoin(Data, {"Sub Brand Name"}, Brands, {"Sub Brand"}, "Brands", JoinKind.FullOuter, [IgnoreCase=true, IgnoreSpace=true]),
+				    #"Merged Queries" = Table.FuzzyNestedJoin(Data, {"Sub Brand Name"}, Brands12345, {"Sub Brand"}, "Brands", JoinKind.FullOuter, [IgnoreCase=true, IgnoreSpace=true]),
 				    #"Expanded Brands" = Table.ExpandTableColumn(#"Merged Queries", "Brands", {"Flagship", "Class", "Type", "Brand", "Product Brand VP"}, {"Flagship", "Class", "Type.1", "Brand", "Product Brand VP"}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Brands",{{"Class", "Brand Class"}, {"Type.1", "Brand Type"}, {"Brand", "Brand Name"}, {"Product Brand VP", "Brand VP"}, {"Subtype", "Product Subtype"}, {"Type", "Product Type"}, {"Material", "Part"}}),
 				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns", each [Product Key] > 0),

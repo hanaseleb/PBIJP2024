@@ -157,7 +157,7 @@
             "x": 2525.1,
             "y": 0
           },
-          "nodeIndex": "Brands",
+          "nodeIndex": "Brands12345",
           "size": {
             "height": 300,
             "width": 234
@@ -309,7 +309,7 @@
             "x": 1055,
             "y": 271
           },
-          "nodeIndex": "Brands",
+          "nodeIndex": "Brands12345",
           "size": {
             "height": 300,
             "width": 234

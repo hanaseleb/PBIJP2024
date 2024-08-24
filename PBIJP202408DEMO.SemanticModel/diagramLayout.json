@@ -22,18 +22,6 @@
         },
         {
           "location": {
-            "x": 2525.1,
-            "y": 0
-          },
-          "nodeIndex": "Brands",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 2243.9,
             "y": 808.2
           },
@@ -163,6 +151,18 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2525.1,
+            "y": 0
+          },
+          "nodeIndex": "Brands1234",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -205,18 +205,6 @@
           },
           "zIndex": 3,
           "expandedHeight": 300
-        },
-        {
-          "location": {
-            "x": 1055,
-            "y": 271
-          },
-          "nodeIndex": "Brands",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
         },
         {
           "location": {
@@ -315,6 +303,18 @@
           },
           "zIndex": 0,
           "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 1055,
+            "y": 271
+          },
+          "nodeIndex": "Brands1234",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Layout 1",

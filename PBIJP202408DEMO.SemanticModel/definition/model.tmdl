@@ -28,13 +28,13 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBIDesktopVersion = 2.132.1053.0 (24.08)
 
-annotation PBI_QueryOrder = ["Brands1234","fx$","Customers","Products","Regions","Orders","fcst","order doc type","Order Status","date"]
+annotation PBI_QueryOrder = ["Brands","fx$","Customers","Products","Regions","Orders","fcst","order doc type","Order Status","date"]
 
 annotation __TEdtr = 1
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table Brands1234
+ref table Brands
 ref table fx$
 ref table Customers
 ref table Products

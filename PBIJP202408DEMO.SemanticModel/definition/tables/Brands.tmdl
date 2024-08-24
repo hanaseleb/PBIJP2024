@@ -1,4 +1,4 @@
-table Brands1234
+table Brands
 	lineageTag: 5e2b506f-5416-43b6-b5f6-160cbd60ab96
 
 	column Flagship
@@ -68,7 +68,7 @@ table Brands1234
 			lineageTag: 4cf48791-4d41-4f0d-988b-385822b676aa
 			column: 'Sub Brand'
 
-	partition Brands1234 = m
+	partition Brands = m
 		mode: import
 		queryGroup: Tables
 		source =

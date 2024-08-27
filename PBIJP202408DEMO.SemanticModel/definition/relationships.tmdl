@@ -4,7 +4,7 @@ relationship 03e537eb-3ddb-4c20-b5ad-9090c0aadd0d
 
 relationship aee91ed3-e637-4150-a8d4-22619ecc0034
 	fromColumn: Products.'Sub Brand Name'
-	toColumn: Brands_PBIJP2024.'Sub Brand'
+	toColumn: Brands12345.'Sub Brand'
 
 relationship 6ef67eab-1e07-436d-a358-6197853f0064
 	crossFilteringBehavior: bothDirections

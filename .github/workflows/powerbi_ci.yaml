@@ -74,19 +74,6 @@ jobs:
               Start-Process -FilePath "$toolPath" -ArgumentList """$itemPath"" -A ""$rulesPath"" -V" -NoNewWindow -Wait
           }
 
-      - name: Run Pester Tests for Datasets
-        shell: pwsh  # Pesterを使ったテストの実行
-        run: |
-          # Pesterのインストール
-          Install-Module -Name Pester -Force -SkipPublisherCheck
-          # テストスクリプトの作成
-          $testScript = 'Describe "Dataset Rules Validation" { It "Should not have any rule violations" { $output = Get-Content -Path "ルール検証のログファイルのパス"  # ルールの実行結果のログファイルのパスを指定; $output | Should -Not -Contain "エラーメッセージまたは失敗条件のキーワード" } }'
-          # テストスクリプトをファイルとして保存
-          $testScriptPath = "${{ github.workspace }}\PesterDatasetTest.ps1"
-          Set-Content -Path $testScriptPath -Value $testScript -Encoding utf8
-          # テストの実行
-          Invoke-Pester -Script $testScriptPath -OutputFormat NUnitXml -OutputFile "${{ github.workspace }}\PesterTestResult.xml"
-
   # レポートのビルドジョブの定義
   build_reports:
     runs-on: windows-latest  # Windows環境でジョブを実行
@@ -143,16 +130,3 @@ jobs:
               Write-Host "Running rules for: '$itemPath'"
               Start-Process -FilePath "$toolPath" -ArgumentList "-pbipreport ""$itemPath"" -rules ""$rulesPath"" -formats ""ADO""" -NoNewWindow -Wait
           }
-
-      - name: Run Pester Tests for Reports
-        shell: pwsh  # Pesterを使ったテストの実行
-        run: |
-          # Pesterのインストール
-          Install-Module -Name Pester -Force -SkipPublisherCheck
-          # テストスクリプトの作成
-          $testScript = 'Describe "Report Rules Validation" { It "Should not have any rule violations" { $output = Get-Content -Path "ルール検証のログファイルのパス"  # ルールの実行結果のログファイルのパスを指定; $output | Should -Not -Contain "エラーメッセージまたは失敗条件のキーワード" } }'
-          # テストスクリプトをファイルとして保存
-          $testScriptPath = "${{ github.workspace }}\PesterReportTest.ps1"
-          Set-Content -Path $testScriptPath -Value $testScript -Encoding utf8
-          # テストの実行
-          Invoke-Pester -Script $testScriptPath -OutputFormat NUnitXml -OutputFile "${{ github.workspace }}\PesterTestResult.xml"

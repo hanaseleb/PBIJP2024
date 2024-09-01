@@ -8,9 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-
-        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
-
+        uses: actions/checkout@v4
 
       - name: Download Tabular Editor and Default Rules
         shell: pwsh
@@ -19,7 +17,7 @@ jobs:
           $tempPath = "$path\_temp"
           $toolPath = "$path\_tools\TE"
           New-Item -ItemType Directory -Path $tempPath -ErrorAction SilentlyContinue | Out-Null              
-          
+
           Write-Host "Downloading Tabular Editor binaries"
           $downloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/latest/download/TabularEditor.Portable.zip"
           $zipFile = "$tempPath\TabularEditor.zip"
@@ -37,12 +35,16 @@ jobs:
           $tempPath = "$path\_temp"
           $toolPath = "$path\_tools\TE\TabularEditor.exe"
           $rulesPath = "$path\Rules-Dataset.json"
+          $violationFile = "$path\violations.txt"
 
           if (!(Test-Path $rulesPath))
           {
               Write-Host "Running downloaded rules"
               $rulesPath = "$tempPath\Rules-Dataset.json"
           }
+
+          # 違反項目を保存するためのファイルを初期化
+          New-Item -Path $violationFile -ItemType File -Force | Out-Null
 
           $itemsFolders = Get-ChildItem -Path $path -recurse -include ("*.pbidataset", "*.pbism")
 
@@ -62,15 +64,25 @@ jobs:
 
               Write-Host "Running rules for: '$itemPath'"
 
-              Start-Process -FilePath "$toolPath" -ArgumentList """$itemPath"" -A ""$rulesPath"" -V" -NoNewWindow -Wait
+              # Tabular Editorを実行してルール違反をチェック
+              Start-Process -FilePath "$toolPath" -ArgumentList """$itemPath"" -A ""$rulesPath"" -V" -NoNewWindow -Wait -PassThru | Out-File -Append -FilePath $violationFile
           }
+
+          # 違反項目をコンソールに表示
+          Get-Content $violationFile
+
+      - name: Upload Violations
+        uses: actions/upload-artifact@v3
+        with:
+          name: dataset-violations
+          path: violations.txt
 
   build_reports:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
-        
+        uses: actions/checkout@v4
+
       - name: Download PBIXInspector
         shell: pwsh
         run: |
@@ -96,12 +108,16 @@ jobs:
           $tempPath = "$path\_temp"
           $toolPath = "$path\_Tools\PBIInspector\win-x64\CLI\PBIXInspectorCLI.exe"
           $rulesPath = "$path\Rules-Report.json"
+          $violationFile = "$path\report-violations.txt"
 
           if (!(Test-Path $rulesPath))
           {
               Write-Host "Running default downloaded rules"
               $rulesPath = "$tempPath\Rules-Report.json"
           }
+
+          # 違反項目を保存するためのファイルを初期化
+          New-Item -Path $violationFile -ItemType File -Force | Out-Null
 
           $itemsFolders = Get-ChildItem -Path $path -recurse -include *.pbir
 
@@ -111,5 +127,15 @@ jobs:
               
               Write-Host "Running rules for: '$itemPath'"
 
-              Start-Process -FilePath "$toolPath" -ArgumentList "-pbipreport ""$itemPath"" -rules ""$rulesPath"" -formats ""ADO""" -NoNewWindow -Wait
+              # PBI Inspectorを実行してルール違反をチェック
+              Start-Process -FilePath "$toolPath" -ArgumentList "-pbipreport ""$itemPath"" -rules ""$rulesPath"" -formats ""ADO""" -NoNewWindow -Wait -PassThru | Out-File -Append -FilePath $violationFile
           }
+
+          # 違反項目をコンソールに表示
+          Get-Content $violationFile
+
+      - name: Upload Violations
+        uses: actions/upload-artifact@v3
+        with:
+          name: report-violations
+          path: report-violations.txt

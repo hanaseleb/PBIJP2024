@@ -2,7 +2,7 @@ name: Power BI VISOPS
 
 # Workflowのトリガー設定。手動での実行（workflow_dispatch）に設定。
 on:
-  [push]
+  workflow_dispatch:
 
 jobs:
   # データセットのビルドジョブの定義

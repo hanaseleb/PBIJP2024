@@ -25,7 +25,7 @@ jobs:
           Expand-Archive -Path $zipFile -DestinationPath $toolPath -Force            
 
           Write-Host "Downloading Dataset default rules"
-          $downloadUrl = "https://github.com/microsoft/Analysis-Services/raw/master/BestPracticeRules/Japanese/BPARules.json"
+          $downloadUrl = "https://raw.githubusercontent.com/microsoft/Analysis-Services/master/BestPracticeRules/BPARules.json"
           Invoke-WebRequest -Uri $downloadUrl -OutFile "$tempPath\Rules-Dataset.json"
 
       - name: Run Dataset Rules
@@ -34,7 +34,7 @@ jobs:
           $path = "${{ github.workspace }}"
           $tempPath = "$path\_temp"
           $toolPath = "$path\_tools\TE\TabularEditor.exe"
-          $rulesPath = "$path\Rules-Dataset.json"
+          $rulesPath = "$tempPath\Rules-Dataset.json"
           $violationFile = "$path\violations.txt"
 
           if (!(Test-Path $rulesPath))
@@ -65,7 +65,10 @@ jobs:
               Write-Host "Running rules for: '$itemPath'"
 
               # Tabular Editorを実行してルール違反をチェック
-              Start-Process -FilePath "$toolPath" -ArgumentList """$itemPath"" -A ""$rulesPath"" -V" -NoNewWindow -Wait -PassThru | Out-File -Append -FilePath $violationFile
+              $output = & "$toolPath" "$itemPath" -A "$rulesPath" -V 2>&1
+
+              # 違反項目が含まれる行をファイルに書き込む
+              $output | Select-String -Pattern "Rule violation" | Out-File -Append -FilePath $violationFile
           }
 
           # 違反項目をコンソールに表示
@@ -76,6 +79,12 @@ jobs:
         with:
           name: dataset-violations
           path: violations.txt
+
+      - name: Display Violations Summary
+        if: success() || failure()
+        run: |
+          echo "### Dataset Violations" >> $GITHUB_STEP_SUMMARY
+          cat violations.txt >> $GITHUB_STEP_SUMMARY
 
   build_reports:
     runs-on: windows-latest
@@ -107,7 +116,7 @@ jobs:
           $path = "${{ github.workspace }}"
           $tempPath = "$path\_temp"
           $toolPath = "$path\_Tools\PBIInspector\win-x64\CLI\PBIXInspectorCLI.exe"
-          $rulesPath = "$path\Rules-Report.json"
+          $rulesPath = "$tempPath\Rules-Report.json"
           $violationFile = "$path\report-violations.txt"
 
           if (!(Test-Path $rulesPath))
@@ -128,7 +137,10 @@ jobs:
               Write-Host "Running rules for: '$itemPath'"
 
               # PBI Inspectorを実行してルール違反をチェック
-              Start-Process -FilePath "$toolPath" -ArgumentList "-pbipreport ""$itemPath"" -rules ""$rulesPath"" -formats ""ADO""" -NoNewWindow -Wait -PassThru | Out-File -Append -FilePath $violationFile
+              $output = & "$toolPath" -pbipreport "$itemPath" -rules "$rulesPath" -formats "ADO" 2>&1
+
+              # 違反項目が含まれる行をファイルに書き込む
+              $output | Select-String -Pattern "Rule violation" | Out-File -Append -FilePath $violationFile
           }
 
           # 違反項目をコンソールに表示
@@ -139,3 +151,9 @@ jobs:
         with:
           name: report-violations
           path: report-violations.txt
+
+      - name: Display Report Violations Summary
+        if: success() || failure()
+        run: |
+          echo "### Report Violations" >> $GITHUB_STEP_SUMMARY
+          cat report-violations.txt >> $GITHUB_STEP_SUMMARY

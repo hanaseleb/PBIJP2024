@@ -2,7 +2,7 @@ name: Power BI CI
 
 # Workflowのトリガー設定。手動での実行（workflow_dispatch）に設定。
 on:
-  workflow_dispatch:
+  [push]
 
 jobs:
   # データセットのビルドジョブの定義

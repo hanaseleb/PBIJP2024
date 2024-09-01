@@ -2,7 +2,7 @@ name: Power BI VISOPS
 
 # Workflowのトリガー設定。手動での実行（workflow_dispatch）に設定。
 on:
-  workflow_dispatch:
+  [push]
 
 jobs:
   # データセットのビルドジョブの定義
@@ -80,14 +80,7 @@ jobs:
           # Pesterのインストール
           Install-Module -Name Pester -Force -SkipPublisherCheck
           # テストスクリプトの作成
-          $testScript = @"
-Describe 'Dataset Rules Validation' {
-    It 'Should not have any rule violations' {
-        $output = Get-Content -Path 'ルール検証のログファイルのパス'  # ルールの実行結果のログファイルのパスを指定
-        $output | Should -Not -Contain 'エラーメッセージまたは失敗条件のキーワード'
-    }
-}
-"@
+          $testScript = 'Describe "Dataset Rules Validation" { It "Should not have any rule violations" { $output = Get-Content -Path "ルール検証のログファイルのパス"  # ルールの実行結果のログファイルのパスを指定; $output | Should -Not -Contain "エラーメッセージまたは失敗条件のキーワード" } }'
           # テストスクリプトをファイルとして保存
           $testScriptPath = "${{ github.workspace }}\PesterDatasetTest.ps1"
           Set-Content -Path $testScriptPath -Value $testScript -Encoding utf8
@@ -157,14 +150,7 @@ Describe 'Dataset Rules Validation' {
           # Pesterのインストール
           Install-Module -Name Pester -Force -SkipPublisherCheck
           # テストスクリプトの作成
-          $testScript = @"
-Describe 'Report Rules Validation' {
-    It 'Should not have any rule violations' {
-        $output = Get-Content -Path 'ルール検証のログファイルのパス'  # ルールの実行結果のログファイルのパスを指定
-        $output | Should -Not -Contain 'エラーメッセージまたは失敗条件のキーワード'
-    }
-}
-"@
+          $testScript = 'Describe "Report Rules Validation" { It "Should not have any rule violations" { $output = Get-Content -Path "ルール検証のログファイルのパス"  # ルールの実行結果のログファイルのパスを指定; $output | Should -Not -Contain "エラーメッセージまたは失敗条件のキーワード" } }'
           # テストスクリプトをファイルとして保存
           $testScriptPath = "${{ github.workspace }}\PesterReportTest.ps1"
           Set-Content -Path $testScriptPath -Value $testScript -Encoding utf8

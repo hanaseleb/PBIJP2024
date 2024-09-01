@@ -72,7 +72,7 @@ jobs:
           Get-Content $violationFile
 
       - name: Upload Violations
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dataset-violations
           path: violations.txt
@@ -135,7 +135,7 @@ jobs:
           Get-Content $violationFile
 
       - name: Upload Violations
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: report-violations
           path: report-violations.txt

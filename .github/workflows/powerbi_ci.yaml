@@ -8,7 +8,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+
+        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
+
 
       - name: Download Tabular Editor and Default Rules
         shell: pwsh
@@ -67,8 +69,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
+        
       - name: Download PBIXInspector
         shell: pwsh
         run: |

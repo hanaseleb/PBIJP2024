@@ -1,4 +1,4 @@
-name: Power BI CI
+name: Power BI VISOPS
 
 on:
   workflow_dispatch:

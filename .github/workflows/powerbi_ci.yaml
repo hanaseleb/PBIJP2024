@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest  # Windows環境でジョブを実行
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
+        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
 
       - name: Download Tabular Editor and Default Rules
         shell: pwsh  # PowerShellでスクリプトを実行
@@ -79,7 +79,7 @@ jobs:
     runs-on: windows-latest  # Windows環境でジョブを実行
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # リポジトリからコードをチェックアウト
+        uses: actions/checkout@v4  # リポジトリからコードをチェックアウト
 
       - name: Download PBIXInspector
         shell: pwsh  # PowerShellでスクリプトを実行
